@@ -7,6 +7,8 @@ export default class ShellRunner implements RunnerIface {
   constructor(private command: string, private options?: ExecOptions) {}
 
   async run(logger: LoggerIface): Promise<void> {
+    logger.log(`> ${this.command}`);
+
     const exitCode = await execAsync(this.command, logger, this.options);
     if (exitCode !== 0) {
       throw new ShellScriptFailedError(exitCode, this.command);

@@ -4,15 +4,19 @@ import { obtainRunnerFromSource } from "./runners/obtainRunnerFromSource";
 
 export async function run(
   path: string,
-  tree: ScriptsTree,
+  trees: ScriptsTree[],
   logger: LoggerIface
 ): Promise<void> {
-  const script = findScripts(path, tree);
-  if (!script) {
-    logger.error(`Script '${path}' is not found`);
-    return;
+  logger.log(`Launching ${path}`);
+
+  for (const tree of trees) {
+    const script = findScripts(path, tree);
+    if (script) {
+      const runner = obtainRunnerFromSource(script);
+      await runner.run(logger);
+      return;
+    }
   }
 
-  const runner = obtainRunnerFromSource(script);
-  await runner.run(logger);
+  logger.error(`Script '${path}' is not found`);
 }

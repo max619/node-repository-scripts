@@ -3,7 +3,7 @@ import LoggerIface from "../common/LoggerIface";
 
 const defaultOptions: SpawnOptionsWithoutStdio = {
   stdio: "pipe",
-  shell: false,
+  shell: true,
 };
 
 export type ExecOptions = Omit<
@@ -16,14 +16,14 @@ export function execAsync(
   logger: LoggerIface,
   options?: ExecOptions
 ): Promise<number> {
-  return new Promise((reject, resolve) => {
+  return new Promise((resolve, reject) => {
     try {
       const process = spawn(command, { ...defaultOptions, ...(options ?? {}) });
 
-      process.stderr.on("data", (data) => logger.error(data));
-      process.stdout.on("data", (data) => logger.log(data));
+      process.stderr.on("data", (data) => logger.error(String(data)));
+      process.stdout.on("data", (data) => logger.log(String(data)));
 
-      process.on("close", (code) => resolve(code));
+      process.on("close", (code) => resolve(code ?? -1));
     } catch (e) {
       reject(e);
     }

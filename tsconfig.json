@@ -1,15 +1,18 @@
 {
-    "compilerOptions": {
-      "module": "commonjs",
+    "compilerOptions": {        
       "noImplicitAny": true,
       "removeComments": false,
       "preserveConstEnums": true,
       "strict": true,
       "alwaysStrict": true,
       "baseUrl": "./src",
-      "strictNullChecks": true
+      "strictNullChecks": true,
+      "outDir": "./dist",
+      "declaration": true,
+      "target": "ESNext"
     },
-    "files": [
+    "filesGlob": [
         "./src/*.ts"
-    ]
-  }
+    ],
+    "exclude": ["./node-modules", "./test_scripts"]
+}
