@@ -1,0 +1,9 @@
+{
+  "name": "repository-scripts",
+  "version": "0.1.0",
+  "description": "Utility for running repository scripts",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Maxim Bagryantsev",
+  "license": "MIT"
+}
