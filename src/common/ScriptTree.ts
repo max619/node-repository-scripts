@@ -71,3 +71,31 @@ export function findScripts(
 
   return findScripts(path, node);
 }
+
+type NodeIterationCallback = (prefix: string, source: ScriptsSources) => void;
+
+function iterateOverNodesInternal(
+  prefix: string,
+  node: ScriptsTree | ScriptsSources,
+  callback: NodeIterationCallback
+) {
+  if (isScriptsSource(node)) {
+    callback(prefix, node);
+  } else {
+    for (const key in node) {
+      const currentNode = node[key];
+
+      if (currentNode) {
+        const currentPrefix = prefix.length === 0 ? key : `${prefix}.${key}`;
+        iterateOverNodesInternal(currentPrefix, currentNode, callback);
+      }
+    }
+  }
+}
+
+export function iterateOverNodes(
+  node: ScriptsTree,
+  callback: NodeIterationCallback
+) {
+  iterateOverNodesInternal("", node, callback);
+}

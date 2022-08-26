@@ -12,7 +12,7 @@
                 "<node_internals>/**"
             ],
             "runtimeExecutable": "yarn",
-            "args": ["ts-node", "${workspaceFolder}/src/cli.ts", "scriptEcho", "mixedEcho", "echo", "echoSeries", "--script", "${workspaceFolder}/test_scripts/echoScripts.ts"]
+            "args": ["ts-node", "${workspaceFolder}/src/cli.ts", "--script", "${workspaceFolder}/test_scripts/echoScripts.ts", "--help" ]
         }
     ]
 }

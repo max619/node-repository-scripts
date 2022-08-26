@@ -8,4 +8,8 @@ export default class FunctionRunner implements RunnerIface {
   async run(logger: LoggerIface): Promise<void> {
     await this.func(logger);
   }
+
+  describe(): string {
+    return String(this.func);
+  }
 }

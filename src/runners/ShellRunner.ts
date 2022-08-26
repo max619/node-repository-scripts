@@ -14,4 +14,8 @@ export default class ShellRunner implements RunnerIface {
       throw new ShellScriptFailedError(exitCode, this.command);
     }
   }
+
+  describe(): string {
+    return this.command;
+  }
 }

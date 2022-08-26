@@ -1,22 +1,18 @@
-import LoggerIface from "./common/LoggerIface";
-import { findScripts, ScriptsTree } from "./common/ScriptTree";
+import RunnerIface from "./common/RunnerIface";
+import { ScriptsSource } from "./common/ScriptTree";
+import { ConcurrentRunner } from "./runners/ConcurrentRunner";
+import { DescriptionRunner } from "./runners/DescriptionRunner";
 import { obtainRunnerFromSource } from "./runners/obtainRunnerFromSource";
 
-export async function run(
-  path: string,
-  trees: ScriptsTree[],
-  logger: LoggerIface
-): Promise<void> {
-  logger.log(`Launching ${path}`);
+export function describe(
+  description: string,
+  ...scripts: ScriptsSource[]
+): RunnerIface {
+  return new DescriptionRunner(obtainRunnerFromSource(scripts), description);
+}
 
-  for (const tree of trees) {
-    const script = findScripts(path, tree);
-    if (script) {
-      const runner = obtainRunnerFromSource(script);
-      await runner.run(logger);
-      return;
-    }
-  }
-
-  logger.error(`Script '${path}' is not found`);
+export function concurrent(...scripts: ScriptsSource[]): RunnerIface {
+  return new ConcurrentRunner(
+    scripts.map((script) => obtainRunnerFromSource(script))
+  );
 }
