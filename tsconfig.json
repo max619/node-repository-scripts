@@ -14,5 +14,5 @@
     "filesGlob": [
         "./src/*.ts"
     ],
-    "exclude": ["./node-modules", "./test_scripts"]
+    "exclude": ["./node-modules", "./test_scripts", "./repository-scripts"]
 }

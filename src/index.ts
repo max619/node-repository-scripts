@@ -1,3 +1,4 @@
+import ShellRunner from "./runners/ShellRunner";
 import RunnerIface from "./common/RunnerIface";
 import { ScriptsSource } from "./common/ScriptTree";
 import { ConcurrentRunner } from "./runners/ConcurrentRunner";
@@ -15,4 +16,8 @@ export function concurrent(...scripts: ScriptsSource[]): RunnerIface {
   return new ConcurrentRunner(
     scripts.map((script) => obtainRunnerFromSource(script))
   );
+}
+
+export function execAt(command: string, cwd: string): RunnerIface {
+  return new ShellRunner(command, { cwd });
 }

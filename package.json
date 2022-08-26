@@ -1,22 +1,24 @@
 {
-  "name": "repository-scripts",
+  "name": "node-repository-scripts",
   "version": "0.1.0",
   "description": "Utility for running repository scripts",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "start": "ts-node -P tsconfig.json ./src/cli.ts",
-    "build": "tsc"
+    "nrs": "ts-node -P tsconfig.json ./src/cli.ts",
+    "start": "ts-node -P tsconfig.json ./src/cli.ts --script ./repository-scripts/main.ts"
   },
   "author": "Maxim Bagryantsev",
   "license": "MIT",
   "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.7.9",
     "@types/yargs": "^17.0.11",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4"
   },
   "dependencies": {
+    "fs-extra": "^10.1.0",
     "yargs": "^17.5.1"
   }
 }
